@@ -1,35 +1,41 @@
-
-#Archivo main.py que contenga: 
-# Un encabezado con:
+"""
+Archivo main.py que contenga:
+Un encabezado con:
     #El propósito del sistema.
     #Cómo instalar y ejecutar el programa.
+Requisitos:
+- Pyhon version 3.9 en adelante.
+Pasos a seguir:
+1. Descargar el archivo SkyRoute.py.
+2. Hacer doble click y abrir el archivo o correr en la terminal con: "python SkyRoute.py".
+3. Seguir las instrucciones indicadas.
     #Datos de los integrantes del grupo (nombre, apellido y DNI).
 #El menú de opciones.
 #Control de flujo de acciones a realizar según la opción seleccionada (sin modularización).
-
 #grupo: DataNotFound
+
+"""
+#Variables
 
 clientes = [] #lista para almacenar a los clientes
 destinos = [] #lista para almacenar destinos
 ventas = [] #lista para almacenar ventas
 
-
 #menu prinicpal
-while True: 
-    print("Bienvenidos a SkyRoute - Sistema de Gestión de Pasajes") 
-    print ("==== Menu Principal ====")
-    print("1. Gestionar Clientes")
+while True:
+    print("Bienvenidos a SkyRoute - Sistema de Gestión de Pasajes")
+    print("==== Menu Principal ====")
+    print("1. Gestionar Clientes") #revisar
     print("2. Gestionar Destinos")
     print("3. Gestionar Ventas")
-    print("4. Historial de Ventas")
-    print("5. Boton de Arrepentimiento")
-    print("6. Reporte General")
-    print("7. Acerca del Sistema")
-    print("8. Salir")
+    print("4. Boton de Arrepentimiento")
+    print("5. Consulta de datos")
+    print("6. Acerca del Sistema")
+    print("7. Salir")
 
     #entrada para el usuario al menu principal
     opcion = input("Seleccione una opcion: ")
-    
+
     if opcion == "1": #opcion de gestionar clientes
         while True:
             print("==== Gestionar Clientes ====")
@@ -38,13 +44,13 @@ while True:
             print("3. Modificar Cliente")
             print("4. Eliminar Cliente")
             print("5. Volver al Menu Principal")
-            
+
             subopcion = input("Seleccione una opcion: ")
-            
+
             if subopcion == "1": #muestra a todos los clientes registrados (si todo esta bien..)
                 print("Clientes registrados: ", clientes) #mostrar los clientes en la memoria
-                
-            elif subopcion == "2": #solicita los datos del cliente y dsp los guarda
+
+            elif subopcion == "2": #solicita los datos del cliente y despues los guarda
                 razon_social = input("Razon social: ")
                 cuit = input("CUIT: ")
                 correo = input("correo: ")
@@ -67,10 +73,10 @@ while True:
                             break
                         else:
                             print("Opcion inválida, intenta nuevamente.")
-                
+
             elif subopcion == "3": #buscar al cliente por cuit para dsp modificar
                 cuit = input("CUIT del cliente a modificar: ")
-                
+
                 for c in clientes:
                     if c["cuit"] == cuit:
                         c["razon_social"] = input("nueva razon social: ")
@@ -94,7 +100,7 @@ while True:
                     print("Cliente no encontrado.")
             elif subopcion == "5":
                 break # Salir del submenu 1
-            
+
             else:
                 print("Opcion inválida, intenta nuevamente.")
 
@@ -103,20 +109,23 @@ while True:
             print("==== Gestionar Destinos ====")
             print("1. Destinos disponibles ")
             print("2. Agregar destino")
-            print("3. Eliminar destino")
-            print("4. Volver al Menu Principal")
+            print("3. Modificar destino") #falta
+            print("4. Eliminar destino") #falta
+            print("5. Volver al Menu Principal")
 
             subopcion = input("Seleccione una opcion: ")
 
             if subopcion == "1":
+                print("==== Destinos disponibles ====")
                 print(destinos)
 
             elif subopcion == "2":
                 print("==== Agregar nuevo destino ====")
                 id_destino= input("Ingrese ID: ")
-                fecha_destino= input("Ingrese fecha: ")
-                hora_destino= input("Ingrese hora: ")
-                destino= {id_destino,fecha_destino,hora_destino}
+                pais_destino= input("Ingrese pais: ")
+                ciudad_destino= input("Ingrese ciudad: ")
+                costo_destino= input("Ingrese costo base: $ ")
+                destino= {"id_destino": id_destino, "pais_destino": pais_destino, "ciudad_destino": ciudad_destino, "costo_destino": costo_destino}
                 destinos.append(destino)
                 while True:
                     print(destino)
@@ -131,53 +140,159 @@ while True:
                         destinos.remove(destino)
                         print("Destino no agregado.")
                         break
-            
-            elif subopcion == "3":
-                print("Destino eliminado con éxito!")
-            
-            elif subopcion == "4":
+            elif subopcion =="3": #Buscar destino para modificar
+                id_destino = input("Ingrese ID del destino a modificar: ")
+
+                for d in destinos: #Modificar ciudad
+                   if d["id_destino"] == id_destino:
+                        ciudad_vieja = ciudad_destino
+                        d["ciudad_destino"] = input("Ingrese la nueva ciudad destino: ")
+                        print(f"La ciudad {ciudad_vieja} fue actualizada a la ciudad {ciudad_destino} con éxito.")
+                        break
+                else:
+                    print("Destino no encontrado.")
+
+            elif subopcion == "4": #Eliminar un destino
+                id_destino = input("Ingrese el ID del destino a eliminar: ")
+                encontrado= False #Variable para comprobar si el destino existe
+
+                for d in destinos:
+                    if d ["id_destino"] == id_destino:
+                        destinos.remove(d)
+                        encontrado = True
+                        print("Destino eliminado con éxito.")
+                        break # Termina el bucle una vez que lo encuentra
+
+                if not encontrado:
+                    print("Destino no encontrado.")
+
+            elif subopcion == "5":
                 break # Salir del submenu 2
 
             else:
                 print("Opcion inválida, intenta nuevamente.")
-    
+
     elif opcion == "3": # Opcion gestionar ventas
         while True:
             print("==== Gestionar Ventas ====")
-            print("1. Historial de Ventas ")
-            print("2. ")
-            print("3. Volver al Menu Principal")
+            print("1. Nueva venta") #falta
+            print("2. Historial de ventas") #falta
+            print("3. Modificar venta") #falta
+            print("4. Eliminar venta") #falta
+            print("5. Volver al Menu Principal")
 
             subopcion = input("Seleccione una opcion: ")
 
-            if subopcion == "1":
-                print("Selecciono la opcion 1")
+            if subopcion == "1": #Registrar una nueva venta
 
-            elif subopcion == "2": 
-                print("Selecciono la opcion 2")  
+                cuit = input("Ingrese el CUIT del cliente: ")
+                id_destino = input("Ingrese ID destino: ")
+                fecha_venta = input ("Ingrese fecha de venta: ")
+
+                #Verifica si el cliente y destino existen
+                cliente_existe = any(c ["cuit"] == cuit for c in clientes)
+                id_destino_existe = any(d["id_destino"] == id_destino for d in destinos)
+
+                if not cliente_existe:
+                   print("El cliente no está registrado.")
+                elif not id_destino_existe:
+                  print("ID destino no registrado.")
+                else:
+                   print("Venta registrada con éxito.")
+                   venta = {"cliente": cuit, "destino": id_destino, "fecha": fecha_venta, "estado": "Activa"}
+                   ventas.append(venta)
+            elif subopcion == "2":
+                print("==== Historial de ventas ====")
+                print(ventas)
 
             elif subopcion == "3":
+                print("==== Modificar venta ====")
+                cuit = input("Ingrese el CUIT del cliente: ")
+                id_destino = input("Ingrese ID destino: ")
+                fecha_venta = input ("Ingrese fecha de venta: ")
+
+                for v in ventas:
+                    if v["cliente"] == cuit and v["destino"] == id_destino and v["fecha"] == fecha_venta:
+                        v["estado"] = input("Ingrese nuevo estado: ")
+                        print("Venta modificada con éxito.")
+                        break
+                    else:
+                        print("Venta no encontrada.")
+
+            elif subopcion == "4":
+                print("==== Eliminar venta ====")
+                cuit = input("Ingrese el CUIT del cliente: ")
+                id_destino = input("Ingrese ID destino: ")
+                fecha_venta = input ("Ingrese fecha de venta: ")
+
+                for v in ventas:
+                    if v["cliente"] == cuit and v["destino"] == id_destino and v["fecha"] == fecha_venta:
+                        ventas.remove(v)
+                        print("Venta eliminada con éxito.")
+                        break
+                else:
+                    print("Venta no encontrada.")
+
+            elif subopcion == "5":
                 break # Salir del submenu 3
+
             else:
                 print("Opcion inválida, intente nuevamente.")
 
-    elif opcion == "5": # Opcion boton de arrepentimiento
-        while True:
-            print("==== Botón de arrepentiemiento ====")
-            print("1. Iniciar solicitud")
-            print("2. Salir")
+    elif opcion == "4":  # Opción botón de arrepentimiento
+      while True:
+        print("==== Botón de arrepentimiento ====")
+        print("1. Iniciar solicitud")
+        print("2. Volver al menú principal")
 
-            subopcion = input("Seleccione una opcion: ")
+        subopcion = input("Seleccione una opción: ")
 
-            if subopcion == "1":
-                print("Solicitud cargada con éxito!")  
-            elif subopcion == "2":
-                break
+        if subopcion == "1":
+            print("Recuerde que solo podrá anular ventas con fecha igual o inferior a 60 días desde la compra.")
+            cuit = input("Ingrese CUIT del cliente: ")
+            ventas_cliente = []
+
+            # Buscar ventas que coincidan con el CUIT
+            for venta in ventas:
+                if venta["cliente"] == cuit:
+                    ventas_cliente.append(venta)
+
+            # Verificar si se encontraron ventas
+            if len(ventas_cliente) == 0:
+                print("No se registran ventas con su número de CUIT.")
             else:
-                print("Opcion inválida, intente nuevamente.")
+                print("Sus ventas registradas son:")
+                for i, venta in enumerate(ventas_cliente):
+                    print(f"{i+1}. Destino: {venta['destino']}, Fecha: {venta['fecha']}, Estado: {venta['estado']}")
+
+                seleccion = input("Ingrese el número de la venta que desea anular: ")
+
+                # Asegurarse de que la selección sea un número válido
+                try:
+                    seleccion = int(seleccion) - 1
+                    if 0 <= seleccion < len(ventas_cliente):
+                        venta_seleccionada = ventas_cliente[seleccion]
+                        dias = int(input("Por favor, ingrese en números ¿Cuántos días pasaron desde la compra?: "))
+
+                        if dias <= 60:
+                            venta_seleccionada["estado"] = "Anulada"
+                            print("La venta ha sido anulada correctamente. Un asesor se comunicará con usted.")
+                        else:
+                            print("No es posible anular la venta. Ya pasaron más de 60 días.")
+                            print("Consulte bases y condiciones en nuestra web.")
+                    else:
+                        print("Selección inválida. Por favor, seleccione un número válido de la lista.")
+                except ValueError:
+                    print("Opción inválida, debe ingresar un número.")
+
+        elif subopcion == "2":
+            break  # Sale del submenu 4
+
+        else:
+            print("Opción inválida, intente nuevamente.")
 
 
-    elif opcion == "8": #Salir del programa
+    elif opcion == "7": #Salir del programa
         print("Saliendo del sistema...")
         break
     else:
