@@ -1,15 +1,29 @@
 """
-Archivo main.py que contenga:
-Un encabezado con:
-    #El propósito del sistema.
-    #Cómo instalar y ejecutar el programa.
+¡Bienvenidos al sistema de destión de pasajes SkyRoute S.R.L!
+SkyRoute S.R.L es un sistema desarrollado como parte de un proyecto academico,
+con el propósito de simular el funcionamiento de una agencia de pasajes aéreos.
+Aquí se pueden registrar diferentes tipos de clientes, tanto empresas como
+personas físicas, gestionar destinos con sus respectivos costos y asociar cada
+venta a un cliente y destino específico.
+Además, incorpora la función del “botón de arrepentimiento”, que simula el
+derecho del usuario a cancelar una compra dentro de un plazo determinado, en
+línea con la normativa de defensa al consumidor.
+
 Requisitos:
-- Pyhon version 3.9 en adelante.
+- Python version 3.9 en adelante.
 Pasos a seguir:
 1. Descargar el archivo SkyRoute.py.
 2. Hacer doble click y abrir el archivo o correr en la terminal con: "python SkyRoute.py".
 3. Seguir las instrucciones indicadas.
-    #Datos de los integrantes del grupo (nombre, apellido y DNI).
+
+Integrantes:
+- Cabrera, Gonzalo (41501046)
+- Gesto, Valentina (41893604)
+- Guevara, Gonzalo (38802553)
+- Herrera, Bruno   (46592052)
+- Theaux, Jimena   (40928800)
+
+#Datos de los integrantes del grupo (nombre, apellido y DNI).
 #El menú de opciones.
 #Control de flujo de acciones a realizar según la opción seleccionada (sin modularización).
 #grupo: DataNotFound
@@ -25,7 +39,7 @@ ventas = [] #lista para almacenar ventas
 while True:
     print("Bienvenidos a SkyRoute - Sistema de Gestión de Pasajes")
     print("==== Menu Principal ====")
-    print("1. Gestionar Clientes") #revisar
+    print("1. Gestionar Clientes")
     print("2. Gestionar Destinos")
     print("3. Gestionar Ventas")
     print("4. Boton de Arrepentimiento")
@@ -109,8 +123,8 @@ while True:
             print("==== Gestionar Destinos ====")
             print("1. Destinos disponibles ")
             print("2. Agregar destino")
-            print("3. Modificar destino") #falta
-            print("4. Eliminar destino") #falta
+            print("3. Modificar destino")
+            print("4. Eliminar destino")
             print("5. Volver al Menu Principal")
 
             subopcion = input("Seleccione una opcion: ")
@@ -175,10 +189,10 @@ while True:
     elif opcion == "3": # Opcion gestionar ventas
         while True:
             print("==== Gestionar Ventas ====")
-            print("1. Nueva venta") #falta
-            print("2. Historial de ventas") #falta
-            print("3. Modificar venta") #falta
-            print("4. Eliminar venta") #falta
+            print("1. Nueva venta")
+            print("2. Historial de ventas")
+            print("3. Modificar venta")
+            print("4. Eliminar venta")
             print("5. Volver al Menu Principal")
 
             subopcion = input("Seleccione una opcion: ")
@@ -291,10 +305,97 @@ while True:
         else:
             print("Opción inválida, intente nuevamente.")
 
+    elif opcion == "5":
+      while True:
+        print("==== Consulta de datos ====")
+        print("1. Clientes")
+        print("2. Destinos")
+        print("3. Ventas realizadas")
+        print("4. Ventas anuladas")
+        print("5. Volver al Menu Principal")
+
+        subopcion = input("Seleccione una opcion: ")
+
+        if subopcion == "1":
+            print("==== Clientes ====")
+            print(clientes)
+
+        elif subopcion == "2":
+            print("==== Destinos ====")
+            print(destinos)
+
+        elif subopcion == "3":
+            print("=== Ventas realizadas ===")
+            print("1. Clientes")
+            print("2. Destino")
+            print("3. Estado")
+            print("4. Volver al menu principal")
+
+            filtro = input("Seleccione la opción por la que desea filtrar: ")
+
+            if filtro == "1":
+                cuit = input("Ingrese el CUIT del cliente: ")
+                for v in ventas:
+                    if v["cliente"] == cuit:
+                        print(v)
+                    elif v["cliente"] != cuit:
+                        print("No hay clientes registrados con ese CUIT.")
+
+            elif filtro == "2":
+                id_destino = input("Ingrese el ID del destino: ")
+                for v in ventas:
+                    if v["destino"] == id_destino:
+                        print(v)
+
+            elif filtro == "3":
+                estado = input("Ingrese el estado (Activa/Anulada): ")
+                for v in ventas:
+                    if v["estado"].lower() == estado.lower():
+                        print(v)
+
+            elif filtro =="4":
+                break
+
+            else:
+                print("Opción inválida, intente nuevamente.")
+
+        elif subopcion == "3":
+          print("=== Ventas realizadas ===")
+          print("Seleccione la opción por la que desea filtra")
+          print("")
+
+        elif subopcion == "4":
+          ventas_anuladas = [v for v in ventas if v["estado"] == "Anulada"]
+          if ventas_anuladas:
+            print("\n==== Ventas Anuladas ====")
+            for v in ventas_anuladas:
+                print(f'Cliente: {v["cliente"]}, Destino: {v["destino"]}, Fecha: {v["fecha"]}')
+          else:
+              print("No hay ventas anuladas registradas.")
+
+        elif subopcion == "5":
+            break  # Sale del submenu 5
+        else:
+            print("Opcion inválida, intente nuevamente.")
+
+    elif opcion == "6":
+        print("==== Acerca del sistema ====")
+        print("""
+¡Bienvenidos al sistema de destión de pasajes SkyRoute S.R.L!
+SkyRoute S.R.L es un sistema desarrollado como parte de un proyecto academico,
+con el propósito de simular el funcionamiento de una agencia de pasajes aéreos.
+Aquí se pueden registrar diferentes tipos de clientes, tanto empresas como
+personas físicas, gestionar destinos con sus respectivos costos y asociar cada
+venta a un cliente y destino específico.
+Además, incorpora la función del “botón de arrepentimiento”, que simula el
+derechodel usuario a cancelar una compra dentro de un plazo determinado, en
+línea con la normativa de defensa al consumidor.
+
+""")
 
     elif opcion == "7": #Salir del programa
         print("Saliendo del sistema...")
         break
     else:
         print("Opcion inválida, intente nuevamente.")
-
+        
