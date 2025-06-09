@@ -25,6 +25,7 @@ skyroute/
 ├── gestion_ventas.py  # Registrar ventas y botón de arrepentimiento
 ├── gestion_arrepentimiento.py  #Anular venta y/o ver su estado
 ├── consultas.py  #Consultar sobre la información de la base de datos
+├── test_conexion.py  #Comprobar la conexion a la base de datos
 ├── poster ABP #Poster del proyecto ABP
 ├── Documento Proyecto Final ABP  #Documento final ABP
 ├── Ética - Proyecto ABP.pdf  #Informe Ética
